@@ -9,12 +9,24 @@ namespace JSRTUnitTests
     TEST_CLASS(UnitTest1)
     {
     public:
+        TEST_METHOD(EvalMathNoWinRT)
+        {
+            JScriptRuntime^ rt = ref new JScriptRuntime();
+            rt->SetActive();
+            auto result = rt->Eval(L"1+1");
+            rt->ClearActive();
+
+            auto n = dynamic_cast<Platform::IBox<double>^>(result);
+            auto doubleResult = n->Value;
+            Assert::AreEqual(2.0, doubleResult, L"1+1 should always be 2");
+        }
+
         TEST_METHOD(EvalMath)
         {
             JScriptRuntime^ rt = ref new JScriptRuntime();
             rt->SetActive();
             rt->AddWinRTNamespace(L"Windows");
-            auto result = rt->Eval(L"1+1");
+            auto result = rt->Eval(L"Windows && 1+1");
             rt->ClearActive();
 
             auto n = dynamic_cast<Platform::IBox<double>^>(result);
