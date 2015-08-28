@@ -234,35 +234,35 @@ Platform::String^ JScriptRuntime::GetScriptException()
 void JScriptRuntime::AddHostObject(Platform::String^ name, Platform::Object^ value)
 {
     JsErrorCode c;
-    IfFailThrowNoRet(c = DefineHostInspectable(m_hostObject, name->Data(), reinterpret_cast<IInspectable*>(value)), L"failed to add object");
+    IfFailThrowWinRTNoRet(c = DefineHostInspectable(m_hostObject, name->Data(), reinterpret_cast<IInspectable*>(value)), L"failed to add object");
 }
 void JScriptRuntime::AddGlobalObject(Platform::String^ name, Platform::Object^ value)
 {
     JsErrorCode c;
     JsValueRef globalObject;
-    IfFailThrowNoRet(c = JsGetGlobalObject(&globalObject), L"can't get global");
-    IfFailThrowNoRet(c = DefineHostInspectable(globalObject, name->Data(), reinterpret_cast<IInspectable*>(value)), L"failed to add object");
+    IfFailThrowWinRTNoRet(c = JsGetGlobalObject(&globalObject), L"can't get global");
+    IfFailThrowWinRTNoRet(c = DefineHostInspectable(globalObject, name->Data(), reinterpret_cast<IInspectable*>(value)), L"failed to add object");
 }
 void JScriptRuntime::AddWinRTNamespace(Platform::String^ name)
 {
     JsErrorCode c;
-    IfFailThrowNoRet(c = JsProjectWinRTNamespace(name->Data()), L"failed to add namespace");
+    IfFailThrowWinRTNoRet(c = JsProjectWinRTNamespace(name->Data()), L"failed to add namespace");
     // IfFailThrowNoRet(c = JsSetProjectionEnqueueCallback(EnqueueCallback, nullptr), L"failed to register callback");
 }
 void JScriptRuntime::StartDebugging()
 {
     JsErrorCode c;
-    IfFailThrowNoRet(c = JsStartDebugging(), L"Failed to start debugging");
+    IfFailThrowWinRTNoRet(c = JsStartDebugging(), L"Failed to start debugging");
 }
 void JScriptRuntime::SetActive()
 {
     JsErrorCode c;
-    IfFailThrowNoRet(c = JsSetCurrentContext(m_context), L"Failed to set the current context");
+    IfFailThrowWinRTNoRet(c = JsSetCurrentContext(m_context), L"Failed to set the current context");
 }
 void JScriptRuntime::ClearActive()
 {
     JsErrorCode c;
-    IfFailThrowNoRet(c = JsSetCurrentContext(JS_INVALID_REFERENCE), L"Failed to clear the current context");
+    IfFailThrowWinRTNoRet(c = JsSetCurrentContext(JS_INVALID_REFERENCE), L"Failed to clear the current context");
 }
 void JScriptRuntime::ClearTimers()
 {

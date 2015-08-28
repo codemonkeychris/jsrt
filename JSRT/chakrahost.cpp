@@ -23,6 +23,10 @@ void ThrowException(wstring errorString)
     JsSetException(errorObject);
 }
 
+void ThrowWinRTException(Platform::String^ errorString)
+{
+    throw ref new Platform::Exception(E_FAIL, errorString);
+}
 //
 // Helper to load a script from disk.
 //

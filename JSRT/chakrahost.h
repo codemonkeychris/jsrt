@@ -12,6 +12,7 @@ void ThrowScriptException();
 JsValueRef CALLBACK RunScript(JsValueRef callee, bool isConstructCall, JsValueRef *arguments, unsigned short argumentCount, void *callbackState);
 
 void ThrowException(std::wstring errorString);
+void ThrowWinRTException(Platform::String^ errorString);
 
 #define IfFailError(v, e) \
     { \
@@ -48,6 +49,15 @@ if (error != JsNoError) \
 if (error != JsNoError) \
         { \
         ThrowException((e)); \
+        } \
+    }
+
+#define IfFailThrowWinRTNoRet(v, e) \
+    { \
+    JsErrorCode error = (v); \
+if (error != JsNoError) \
+        { \
+        ThrowWinRTException((e)); \
         } \
     }
 
